@@ -24,7 +24,9 @@
  * <variableList> ::= <variable> <variableList>
  *              | epsilon
  */
+import java.beans.Expression;
 import java.io.FileNotFoundException;
+import java.util.function.Function;
 
 public class Parser {
 
@@ -63,6 +65,55 @@ public class Parser {
         }
     }
 
+    private void assigment() {
+        recognizeVariable();
+        recognize(Lexer.ASSIGN);
+
+    }
+
+    private void expression() {
+        term();
+        expressionRest();
+    }
+
+    private void term() {
+        factor();
+        termRest();
+
+    }
+
+    private void factor() {
+        if (token.code == Lexer.VARIABLE) {
+            recognizeVariable();
+        } else if (token.code == Lexer.CONSTANT) {
+            recognizeConstant();
+        } else if (token.code != Lexer.SUM && token.code != Lexer.MULT) {
+            recognize(Lexer.LPAREN);
+            expression();
+            recognize(Lexer.RPAREN);
+        }
+    }
+
+    private void termRest() {
+        if (token.code == Lexer.MULT) {
+            recognize(Lexer.MULT);
+            factor();
+            termRest();
+        } else {
+
+        }
+    }
+
+    private void expressionRest() {
+        if (token.code == Lexer.SUM) {
+            recognize(Lexer.SUM);
+            term();
+            expressionRest();
+        } else {
+
+        }
+    }
+
     /**
      * Check if the current token is a variable Returns the name of the
      * variable. This will be needed when generating code.
@@ -83,6 +134,22 @@ public class Parser {
         return text;
     }
 
+    private String recognizeConstant() {
+        String text;
+        if (token.code == Lexer.CONSTANT) {
+            text = token.text;
+            // Generate code for the variable
+            token = lexer.nextToken();
+        } else {
+            text = null;
+            System.out.print("Syntax Error. ");
+            System.out.println("Expected: constant found: "
+                    + lexer.getTokenText(token.code));
+            System.exit(2);
+        }
+        return text;
+    }
+
     /**
      * <program> ::= program <funDefinition> endprogram
      */
@@ -94,13 +161,13 @@ public class Parser {
             System.out.println("No errors found");
         }
     }
-    
+
     /**
      * <funDefinitionList> ::= <funDefinition> <funDefinitionList>
-     *                  | epsilon
+     * | epsilon
      */
     public void funDefinitionList() {
-        if(token.code == Lexer.DEF) {
+        if (token.code == Lexer.DEF) {
             funDefinition();
             funDefinitionList();
         } else {
@@ -109,10 +176,10 @@ public class Parser {
     }
 
     /**
-     * <funDefinition> ::= def variable lparen <varDefList> rparen 
-     *              <varDefinitionList>
-     *              <satamentList> 
-     *              enddef
+     * <funDefinition> ::= def variable lparen <varDefList> rparen
+     * <varDefinitionList>
+     * <satamentList>
+     * enddef
      *
      */
     public void funDefinition() {
@@ -131,7 +198,7 @@ public class Parser {
 
     /**
      * <varDefList> ::= <varDef> <varDefList>
-     *                  | epsilon
+     * | epsilon
      *
      */
     public void varDefList() {
@@ -154,8 +221,8 @@ public class Parser {
     }
 
     /**
-     * <statementList> ::= <statement> <statementList> 
-     *                  | epsilon
+     * <statementList> ::= <statement> <statementList>
+     * | epsilon
      *
      */
     public void statementList() {
@@ -171,10 +238,10 @@ public class Parser {
 
     /**
      *
-     * <statment> ::= read variable 
-     *              | print variable 
-     *              | call variable lparen
-     */         
+     * <statment> ::= read variable
+     * | print variable
+     * | call variable lparen
+     */
     public void statement() {
         String text = null;
         switch (token.code) {
@@ -193,18 +260,20 @@ public class Parser {
                 variableList();
                 recognize(Lexer.RPAREN);
                 break;
+            case Lexer.VARIABLE:
+
             default:
                 break;
         }
     }
-    
+
     /**
-     * <variableList> ::= variable <variableList> 
-     *              | epsilon
+     * <variableList> ::= variable <variableList>
+     * | epsilon
      */
     public void variableList() {
         String text = null;
-        if(token.code == Lexer.VARIABLE) {
+        if (token.code == Lexer.VARIABLE) {
             text = recognizeVariable();
             variableList();
         } else {

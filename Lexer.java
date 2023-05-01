@@ -68,10 +68,8 @@ public class Lexer {
         table.add(new Token(INT, "int"));
         table.add(new Token(READ, "read"));
         table.add(new Token(PRINT, "print"));
-
         table.add(new Token(SUM, "+"));
         table.add(new Token(MULT, "*"));
-        
         table.add(new Token(CALL, "call"));
         table.add(new Token(EOF, "EOF"));
     }
