@@ -1,0 +1,16 @@
+
+program
+
+  def main ( int a int b )
+    int d
+    read d
+    call sumar ( a b )
+    print a
+  enddef
+
+  def sumar ( int x int y ) 
+    int z
+  enddef
+
+endprogram
+
