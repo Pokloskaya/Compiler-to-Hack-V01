@@ -18,7 +18,7 @@ public class Lexer {
     //Type of digits and letters
     public static final int[] DIGIT = {0,1,2,3,4,5,6,7,8,9};
     public static final char[] LETER = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-
+    
     // Types of tokens
     public static final int PROGRAM = 1;
     public static final int ENDPROGRAM = 2;
@@ -62,6 +62,7 @@ public class Lexer {
         table.add(new Token(IF, "if"));
         table.add(new Token(ELSE, "else"));
         table.add(new Token(ENDIF, "endif"));
+        table.add(new Token(ASSIGN, "="));
         table.add(new Token(EQUALS, "=="));
         table.add(new Token(LPAREN, "("));
         table.add(new Token(RPAREN, ")"));
@@ -72,6 +73,10 @@ public class Lexer {
         table.add(new Token(MULT, "*"));
         table.add(new Token(CALL, "call"));
         table.add(new Token(EOF, "EOF"));
+
+        for (char letra: LETER) {
+            table.add(new Token(VARIABLE, String.valueOf(letra)));
+        }
     }
     
     /**

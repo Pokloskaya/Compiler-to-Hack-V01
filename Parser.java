@@ -66,9 +66,10 @@ public class Parser {
     }
 
     private void assigment() {
-        recognizeVariable();
+        //recognizeVariable();
+        recognize(Lexer.VARIABLE);
         recognize(Lexer.ASSIGN);
-
+        expression();
     }
 
     private void expression() {
@@ -79,7 +80,6 @@ public class Parser {
     private void term() {
         factor();
         termRest();
-
     }
 
     private void factor() {
@@ -126,6 +126,7 @@ public class Parser {
             token = lexer.nextToken();
         } else {
             text = null;
+            System.out.println("ERROR EN RECONOCER VARIABLE");
             System.out.print("Syntax Error. ");
             System.out.println("Expected: variable found: "
                     + lexer.getTokenText(token.code));
@@ -142,6 +143,7 @@ public class Parser {
             token = lexer.nextToken();
         } else {
             text = null;
+            System.out.println("ERROR EN RECONOCER CONSTANTE");
             System.out.print("Syntax Error. ");
             System.out.println("Expected: constant found: "
                     + lexer.getTokenText(token.code));
@@ -226,9 +228,11 @@ public class Parser {
      *
      */
     public void statementList() {
+        
         if (token.code == Lexer.READ
                 || token.code == Lexer.PRINT
-                || token.code == Lexer.CALL) {
+                || token.code == Lexer.CALL
+                || token.code == Lexer.VARIABLE) {
             statement();
             statementList();
         } else {
@@ -243,6 +247,8 @@ public class Parser {
      * | call variable lparen
      */
     public void statement() {
+        System.out.print("Token code: "); 
+        System.out.println(token.code);
         String text = null;
         switch (token.code) {
             case Lexer.READ:
@@ -253,7 +259,7 @@ public class Parser {
                 recognize(Lexer.PRINT);
                 text = recognizeVariable();
                 break;
-            case Lexer.CALL:
+            case Lexer.CALL: //when calling a function
                 recognize(Lexer.CALL);
                 text = recognizeVariable();
                 recognize(Lexer.LPAREN);
@@ -261,7 +267,10 @@ public class Parser {
                 recognize(Lexer.RPAREN);
                 break;
             case Lexer.VARIABLE:
-
+                // recognize(Lexer.VARIABLE);
+                // text = recognizeVariable();
+                assigment();
+                break;
             default:
                 break;
         }
