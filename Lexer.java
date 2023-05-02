@@ -39,6 +39,10 @@ public class Lexer {
     public static final int CALL = 17;
     public static final int SUM = 18;
     public static final int MULT = 19;
+    public static final int DIFFER = 20;
+    public static final int ENDELSE = 21;
+    public static final int WHILE = 22;
+    public static final int ENDWHILE = 23;
     public static final int INVALIDTOKEN = 98;
     public static final int EOF = 99;
     
@@ -59,11 +63,15 @@ public class Lexer {
         table.add(new Token(ENDPROGRAM, "endprogram"));
         table.add(new Token(DEF, "def"));
         table.add(new Token(ENDDEF, "enddef"));
-        table.add(new Token(IF, "if"));
+        table.add(new Token(IF, "if")); 
         table.add(new Token(ELSE, "else"));
+        table.add(new Token(WHILE, "while"));
+        table.add(new Token(ENDWHILE, "endwhile"));
+        table.add(new Token(ENDELSE, "endelse"));
         table.add(new Token(ENDIF, "endif"));
         table.add(new Token(ASSIGN, "="));
         table.add(new Token(EQUALS, "=="));
+        table.add(new Token(DIFFER, "!="));
         table.add(new Token(LPAREN, "("));
         table.add(new Token(RPAREN, ")"));
         table.add(new Token(INT, "int"));

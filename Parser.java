@@ -65,6 +65,7 @@ public class Parser {
         }
     }
 
+
     private void assigment() {
         //recognizeVariable();
         recognize(Lexer.VARIABLE);
@@ -75,6 +76,41 @@ public class Parser {
     private void expression() {
         term();
         expressionRest();
+    }
+
+    public void condition() {
+        expression();
+
+        if (token.code == Lexer.EQUALS)
+            recognize(Lexer.EQUALS);
+        else if (token.code == Lexer.DIFFER)
+            recognize(Lexer.DIFFER);
+
+        expression();
+
+    }
+
+    public void ifStatement() {
+        recognize(Lexer.IF);
+        recognize(Lexer.LPAREN);
+        condition();
+        recognize(Lexer.RPAREN);
+        statementList();
+        if(token.code == Lexer.ELSE){
+            recognize(Lexer.ELSE);
+            statementList();
+            recognize(Lexer.ENDELSE);
+        }
+        recognize(Lexer.ENDIF);
+    } 
+
+    public void whileStatement() {
+        recognize(Lexer.WHILE);
+        recognize(Lexer.LPAREN);
+        condition();
+        recognize(Lexer.RPAREN);
+        statementList();
+        recognize(Lexer.ENDWHILE);
     }
 
     private void term() {
@@ -126,7 +162,7 @@ public class Parser {
             token = lexer.nextToken();
         } else {
             text = null;
-            System.out.println("ERROR EN RECONOCER VARIABLE");
+            //System.out.println("ERROR EN RECONOCER VARIABLE");
             System.out.print("Syntax Error. ");
             System.out.println("Expected: variable found: "
                     + lexer.getTokenText(token.code));
@@ -143,7 +179,7 @@ public class Parser {
             token = lexer.nextToken();
         } else {
             text = null;
-            System.out.println("ERROR EN RECONOCER CONSTANTE");
+            //System.out.println("ERROR EN RECONOCER CONSTANTE");
             System.out.print("Syntax Error. ");
             System.out.println("Expected: constant found: "
                     + lexer.getTokenText(token.code));
@@ -204,6 +240,7 @@ public class Parser {
      *
      */
     public void varDefList() {
+        //System.out.println("Estoy ejecutando var def weee ");
         if (token.code == Lexer.INT) {
             // all variable definitions start with "int"
             // Not that the token is not recoginzed here but in
@@ -228,11 +265,14 @@ public class Parser {
      *
      */
     public void statementList() {
-        
+        //System.out.print("Estoy ejecutando statement list xd y este es el token: ");
+        //System.out.println(token.code);
         if (token.code == Lexer.READ
                 || token.code == Lexer.PRINT
                 || token.code == Lexer.CALL
-                || token.code == Lexer.VARIABLE) {
+                || token.code == Lexer.VARIABLE
+                || token.code == Lexer.IF
+                || token.code == Lexer.WHILE) {
             statement();
             statementList();
         } else {
@@ -247,8 +287,8 @@ public class Parser {
      * | call variable lparen
      */
     public void statement() {
-        System.out.print("Token code: "); 
-        System.out.println(token.code);
+        // System.out.print("Token code: "); 
+        // System.out.println(token.code);
         String text = null;
         switch (token.code) {
             case Lexer.READ:
@@ -271,6 +311,16 @@ public class Parser {
                 // text = recognizeVariable();
                 assigment();
                 break;
+
+            case Lexer.IF:
+                ifStatement();
+                break;
+
+            case Lexer.WHILE:
+                whileStatement();
+                break;
+
+
             default:
                 break;
         }

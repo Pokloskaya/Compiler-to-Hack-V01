@@ -1,17 +1,22 @@
-
 program
+	def main ( int a int b )
+		int i
+		int acum
+		int j
 
-  def main ( int a int b )
-    int d
-    read d
-    call sumar ( a b )
-    print a
-  enddef
-
-  def sumar ( int x int y ) 
-    int z
-    a = x 
-  enddef
-
+		read i
+		acum = 0
+		j = 0
+		
+		if ( i == 10 )
+			while ( j != 1 )
+				acum = acum + j * ( i + 1 )
+				j = j + 1
+			endwhile
+		else
+			acum = 1
+    endelse
+		endif
+		print acum
+	enddef
 endprogram
-
