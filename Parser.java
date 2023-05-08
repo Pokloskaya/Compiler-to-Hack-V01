@@ -2,7 +2,6 @@
 /**
  * Parser for ST0244 language
  *
- * @author Helmuth Trefftz
  *
  * El lenguaje que se reconoce es el siguiente:
  *
@@ -24,9 +23,8 @@
  * <variableList> ::= <variable> <variableList>
  *              | epsilon
  */
-import java.beans.Expression;
+
 import java.io.FileNotFoundException;
-import java.util.function.Function;
 
 public class Parser {
 
@@ -64,7 +62,6 @@ public class Parser {
             System.exit(2);
         }
     }
-
 
     private void assigment() {
         //recognizeVariable();

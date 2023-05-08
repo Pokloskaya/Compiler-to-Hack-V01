@@ -1,7 +1,6 @@
 /**
  * Class for storing a token.
  * It has two attributes: the numeric code and (possibly) the text
- * @author Helmuth Trefftz
  */
 public class Token {
     int code;

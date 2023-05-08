@@ -1,8 +1,5 @@
-
-
 /**
  * Main program
- * @author Helmuth Trefftz
  */
 public class Main {
     public static void main(String [] args) {

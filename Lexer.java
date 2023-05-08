@@ -3,7 +3,6 @@
  * Very simple Lexer, built on the Java Scanner.
  * Limitation: all the symbols have to be separted with spaces 
  * in the source file.
- * @author Helmuth Trefftz
  */
 import java.util.Scanner;
 import java.io.File;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 
 /**
  * This lexer returns tokens to the Parser
- * @author Helmuth Trefftz
  */
 public class Lexer {
     //Type of digits and letters
