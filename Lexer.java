@@ -41,6 +41,9 @@ public class Lexer {
     public static final int ENDELSE = 21;
     public static final int WHILE = 22;
     public static final int ENDWHILE = 23;
+    public static final int CALLF = 24;
+    public static final int REPEAT = 25;
+    public static final int UNTIL = 26;
     public static final int INVALIDTOKEN = 98;
     public static final int EOF = 99;
     
@@ -78,6 +81,9 @@ public class Lexer {
         table.add(new Token(SUM, "+"));
         table.add(new Token(MULT, "*"));
         table.add(new Token(CALL, "call"));
+        table.add(new Token(CALLF, "callf"));
+        table.add(new Token(REPEAT, "repeat"));
+        table.add(new Token(UNTIL, "until"));
         table.add(new Token(EOF, "EOF"));
 
         for (char letra: LETER) {
