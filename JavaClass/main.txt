@@ -1,22 +1,35 @@
 program
-	def main ( int a int b )
-		int i
-		int acum
-		int j
+  int a
+  def main ( )
+    int b
+    a = 19
+    b = 3
+    b = callf acum ( 2 ) 
 
-		read i
-		acum = 0
-		j = 0
-		
-		if ( i == 10 )
-			while ( j != 1 )
-				acum = acum + j * ( i + 1 )
-				j = j + 1
-			endwhile
-		else
-			acum = 1
-    endelse
-		endif
-		print acum
-	enddef
+    if ( a < b )
+     repeat
+       a = a + 5
+     until ( b >= a )
+    else
+     repeat
+       b = b + 5
+     until ( b > a )
+    endif
+    print ( a )
+    print ( b )
+
+  enddef
+
+  def acum ( int num )
+    int ac
+    int i
+    ac = 1
+    i = num
+    repeat
+     ac = ac * num
+     i = i + 1
+    until ( i >= 6 )
+    return ac
+  enddef
+
 endprogram

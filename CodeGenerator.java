@@ -108,6 +108,7 @@ public class CodeGenerator {
     }
     
     public void writeFile() {
+        code += "function Main.mult 2\npush constant 0\npop local 0\npush constant 0\npop local 1\nlabel label0\npush local 0\npush argument 1\nlt\nnot\nif-goto label1\npush local 0\npush constant 1\nadd\npop local 0\npush local 1\npush argument 0\nadd\npop local 1\ngoto label0\nlabel label1\npush local 1\nreturn";
         writer.print(code);
         writer.close();
         System.out.println("Generated code: ");

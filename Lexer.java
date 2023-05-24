@@ -1,4 +1,3 @@
-
 /**
  * Very simple Lexer, built on the Java Scanner.
  * Limitation: all the symbols have to be separted with spaces 
@@ -13,10 +12,6 @@ import java.util.ArrayList;
  * This lexer returns tokens to the Parser
  */
 public class Lexer {
-    //Type of digits and letters
-    public static final int[] DIGIT = {0,1,2,3,4,5,6,7,8,9};
-    public static final char[] LETER = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-    
     // Types of tokens
     public static final int PROGRAM = 1;
     public static final int ENDPROGRAM = 2;
@@ -35,15 +30,20 @@ public class Lexer {
     public static final int READ = 15;
     public static final int PRINT = 16;
     public static final int CALL = 17;
-    public static final int SUM = 18;
-    public static final int MULT = 19;
-    public static final int DIFFER = 20;
-    public static final int ENDELSE = 21;
-    public static final int WHILE = 22;
-    public static final int ENDWHILE = 23;
+    public static final int RETURN = 18;
+    public static final int PLUS = 19;
+    public static final int MINUS = 20;
+    public static final int WHILE = 21;
+    public static final int ENDWHILE = 22;
+    public static final int NEQ = 23;
     public static final int CALLF = 24;
     public static final int REPEAT = 25;
     public static final int UNTIL = 26;
+    public static final int GT = 27;
+    public static final int LT = 28;
+    public static final int GE = 29;
+    public static final int LE = 30;
+    public static final int MULT = 31;
     public static final int INVALIDTOKEN = 98;
     public static final int EOF = 99;
     
@@ -52,43 +52,46 @@ public class Lexer {
     Scanner fileScanner = null;
     Scanner lineScanner = null;
     
+    int lineNumber = 0;
+    
     /**
      * Constructor
      * @param fileName Name of the input file
      * @throws FileNotFoundException 
      */
     public Lexer(String fileName) throws FileNotFoundException {
-        fileScanner = new Scanner(new File(fileName));
+        fileScanner = new Scanner(new File(fileName + ".txt"));
         table = new ArrayList<>();
         table.add(new Token(PROGRAM, "program"));
         table.add(new Token(ENDPROGRAM, "endprogram"));
         table.add(new Token(DEF, "def"));
         table.add(new Token(ENDDEF, "enddef"));
-        table.add(new Token(IF, "if")); 
+        table.add(new Token(IF, "if"));
         table.add(new Token(ELSE, "else"));
-        table.add(new Token(WHILE, "while"));
-        table.add(new Token(ENDWHILE, "endwhile"));
-        table.add(new Token(ENDELSE, "endelse"));
         table.add(new Token(ENDIF, "endif"));
-        table.add(new Token(ASSIGN, "="));
         table.add(new Token(EQUALS, "=="));
-        table.add(new Token(DIFFER, "!="));
+        table.add(new Token(ASSIGN, "="));
         table.add(new Token(LPAREN, "("));
         table.add(new Token(RPAREN, ")"));
+        table.add(new Token(GT, ">"));
+        table.add(new Token(GE, ">="));
+        table.add(new Token(LT, "<"));
+        table.add(new Token(LE, "<="));
         table.add(new Token(INT, "int"));
         table.add(new Token(READ, "read"));
         table.add(new Token(PRINT, "print"));
-        table.add(new Token(SUM, "+"));
-        table.add(new Token(MULT, "*"));
         table.add(new Token(CALL, "call"));
+        table.add(new Token(RETURN, "return"));
+        table.add(new Token(PLUS, "+"));
+        table.add(new Token(MINUS, "-"));
+        table.add(new Token(MULT, "*"));
+        table.add(new Token(WHILE, "while"));
+        table.add(new Token(ENDWHILE, "endwhile"));
+        table.add(new Token(NEQ, "!="));
         table.add(new Token(CALLF, "callf"));
         table.add(new Token(REPEAT, "repeat"));
         table.add(new Token(UNTIL, "until"));
         table.add(new Token(EOF, "EOF"));
-
-        for (char letra: LETER) {
-            table.add(new Token(VARIABLE, String.valueOf(letra)));
-        }
     }
     
     /**
@@ -106,6 +109,7 @@ public class Lexer {
                 if(fileScanner.hasNextLine()) {
                     // read next line an prepare line scanner
                     String line = fileScanner.nextLine();
+                    lineNumber++;
                     lineScanner = new Scanner(line);
                 } else {
                     // End Of File
