@@ -2,7 +2,7 @@
     <a href="https://imgur.com/LV1vhhh"><img width="400" src="https://i.imgur.com/LV1vhhh.jpg" title="source: imgur.com" /></a>
 </p>
       
-<h1 align="center"> Recognizer ParserTopDown✨</h1>
+<h1 align="center"> Compiler to Hack✨</h1>
 
 <h2 align="left">
   Description:
@@ -13,7 +13,7 @@ This project involves defining a grammar to specify a programming language's syn
 - This is a compiler for a defined grammar. 
 - It has a Scanner (lexer) that reads the code and returns the tokens to the parser
 - The parser defines if the code is valid. 
-- The code generator generates the code that will run in a VMemulator
+- The code generator creates the code that will run in a VMemulator
 
 <h2 align="left">
   Functionalities:
@@ -21,7 +21,6 @@ This project involves defining a grammar to specify a programming language's syn
 
 - Defined grammar
 - Basic arithmethic operations
-- Loops (repeat (code) until (condition to stop))
+- Loops (repeat 'code' until 'condition to stop')
 - Conditonal (if, else)
-- Parenthesis checks
-- Logic operator (greater, great equal, less, less equal)
+- Logic operators (greater, great equal, less, less equal)
