@@ -545,9 +545,7 @@ public class Parser {
      * | epsilon
      */
     public void variableList() {
-        String text = null;
         if (token.code == Lexer.VARIABLE) {
-            text = recognizeVariable();
             variableList();
         } else {
             // nothing, epsilon
