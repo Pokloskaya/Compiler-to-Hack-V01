@@ -4,16 +4,24 @@
       
 <h1 align="center"> Recognizer ParserTopDown✨</h1>
 
+<h2 align="left">
+  Description:
+</h2>
+
+This project involves defining a grammar to specify a programming language's syntax and using it to generate corresponding Hack VM code, which can be executed on the Hack computer platform.
+
 - This is a compiler for a defined grammar. 
 - It has a Scanner (lexer) that reads the code and returns the tokens to the parser
 - The parser defines if the code is valid. 
+- The code generator generates the code that will run in a VMemulator
 
 <h2 align="left">
   Functionalities:
 </h2>
 
 - Defined grammar
-- Basic operations
-- Loops
-- Decitions (if, else)
-- Parenthesis
+- Basic arithmethic operations
+- Loops (repeat (code) until (condition to stop))
+- Conditonal (if, else)
+- Parenthesis checks
+- Logic operator (greater, great equal, less, less equal)
